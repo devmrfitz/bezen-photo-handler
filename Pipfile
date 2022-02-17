@@ -9,6 +9,9 @@ djangorestframework = "*"
 markdown = "*"
 django-filter = "*"
 pillow = "*"
+celery = "*"
+redis = "*"
+gunicorn = "*"
 
 [dev-packages]
 

@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  uwsgi:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ../:/opt/deploy/bezen
+    environment:
+      - DEBUG=True
+      - DJANGO_TEST_SERVER=True

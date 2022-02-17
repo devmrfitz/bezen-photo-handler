@@ -1,0 +1,83 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: library/postgres:12-alpine
+    container_name: bezen_postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./env_file_postgres
+
+  uwsgi:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: bezen_uwsgi
+    ports:
+      - '80:80'
+    volumes:
+      - ../configuration/intel_owl.ini:/etc/uwsgi/sites/intel_owl.ini # uwsgi configuration file
+      - ../configuration:/opt/deploy/bezen/configuration
+      - generic_logs:/var/log/intel_owl
+      - static_content:/opt/deploy/bezen/static
+      - shared_files:/opt/deploy/files_required
+    entrypoint:
+      - ./docker/entrypoint_uwsgi.sh
+    expose:
+      - "8001"
+    env_file:
+      - env_file_app
+    depends_on:
+      - postgres
+
+  redis:
+    image: redis:latest
+    container_name: rd01
+    depends_on:
+      - postgres
+
+  celery_beat:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: bezen_celery_beat
+    restart: unless-stopped
+    command: /usr/local/bin/celery -A backend.celery beat --schedule=/tmp/celerybeat-schedule
+    env_file:
+      - env_file_app
+    depends_on:
+      - redis
+      - postgres
+      - uwsgi
+
+  celery_worker_default:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: bezen_celery_worker_default
+    restart: unless-stopped
+    stop_grace_period: 3m
+    command: /usr/local/bin/celery -A backend.celery worker --schedule=/tmp/celerybeat-schedule
+#    volumes:
+#      - ../configuration:/opt/deploy/intel_owl/configuration
+#      - generic_logs:/var/log/intel_owl
+#      - shared_files:/opt/deploy/files_required
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: "10m"
+    env_file:
+      - env_file_app
+    depends_on:
+      - redis
+      - postgres
+      - uwsgi
+
+
+volumes:
+  postgres_data:
+  generic_logs:
+  static_content:
+  shared_files:
