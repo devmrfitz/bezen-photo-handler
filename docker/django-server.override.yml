@@ -10,3 +10,7 @@ services:
     environment:
       - DEBUG=True
       - DJANGO_TEST_SERVER=True
+
+  celery_worker_default:
+    volumes:
+      - ../:/opt/deploy/bezen
