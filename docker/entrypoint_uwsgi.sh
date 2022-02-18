@@ -24,7 +24,7 @@ echo "------------------------------"
 
 if [[ $DEBUG == "True" ]] && [[ $DJANGO_TEST_SERVER == "True" ]];
 then
-    python manage.py runserver 0.0.0.0:80
+    python manage.py runserver 0.0.0.0:8001
 else
-    gunicorn backend.wsgi:application --bind 0.0.0.0:80
+    gunicorn backend.wsgi:application --bind 0.0.0.0:8001
 fi
