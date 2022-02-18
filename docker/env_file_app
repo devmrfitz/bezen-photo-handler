@@ -7,8 +7,6 @@ DB_PASSWORD=password
 
 # other variables
 DEBUG=False
-LDAP_ENABLED=False
-DISABLE_LOGGING_TEST=False
-MOCK_CONNECTIONS=False
-DB_NAME=intel_owl_db
-HTTPS_ENABLED=not_enabled
+DB_NAME=postgres
+REDIS_URL=redis://redis:6379/
+MEDIA_ROOT=/opt/deploy/bezen/media/
