@@ -13,6 +13,8 @@ celery = "*"
 redis = "*"
 gunicorn = "*"
 psycopg2 = "*"
+wand = "*"
+whitenoise = "*"
 
 [dev-packages]
 

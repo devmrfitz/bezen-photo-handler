@@ -4,3 +4,4 @@ venv
 docker/env_file_app
 docker/env_file_postgres
 temp/
+media/

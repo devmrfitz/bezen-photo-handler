@@ -13,7 +13,7 @@ celery==5.2.3
 click-didyoumean==0.3.0; python_full_version >= '3.6.2' and python_full_version < '4.0.0'
 click-plugins==1.1.1
 click-repl==0.2.0
-click==8.0.3; python_version >= '3.6'
+click==8.0.4; python_version >= '3.6'
 deprecated==1.2.13; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
 django-filter==21.1
 django==4.0.2
@@ -32,5 +32,7 @@ setuptools==59.6.0; python_version >= '3.6'
 six==1.16.0; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
 sqlparse==0.4.2; python_version >= '3.5'
 vine==5.0.0; python_version >= '3.6'
+wand==0.6.7
 wcwidth==0.2.5
+whitenoise==6.0.0
 wrapt==1.13.3; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'
