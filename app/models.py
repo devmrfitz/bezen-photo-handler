@@ -10,3 +10,6 @@ class Record(models.Model):
     latitude = models.FloatField()
     longitude = models.FloatField()
     photo = models.ImageField(upload_to='images/')
+
+    class Meta:
+        ordering = ('-timestamp',)
