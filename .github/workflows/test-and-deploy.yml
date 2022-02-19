@@ -10,7 +10,7 @@ jobs:
 
       - name: "Start the containers using Docker-compose"
         run: |
-          sudo docker-compose -p bezen --project-directory docker -f docker/default.yml up -d
+          cd docker && sudo docker-compose -p bezen up -d
 
       - name: "Run the tests"
         run: |
@@ -26,7 +26,7 @@ jobs:
 #
 #      - name: "Start the containers using Docker-compose"
 #        run: |
-#          sudo docker-compose -p bezen --project-directory docker -f docker/default.yml up -d
+#          cd dodosudo docker-compose -p bezen --project-directory docker -f docker/default.yml up -d
 #
 #      - name: "Run the tests"
 #        run: |
