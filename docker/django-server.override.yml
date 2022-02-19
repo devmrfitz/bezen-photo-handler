@@ -7,7 +7,6 @@ services:
       dockerfile: docker/Dockerfile
     volumes:
       - ../:/opt/deploy/bezen
-      - bezen_media:/opt/deploy/bezen/media
     environment:
       - DEBUG=True
       - DJANGO_TEST_SERVER=True

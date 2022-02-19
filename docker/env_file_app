@@ -1,12 +1,12 @@
-# Required Secrets
 DJANGO_SECRET=
 DB_HOST=postgres
 DB_PORT=5432
 DB_USER=user
 DB_PASSWORD=password
 
-# other variables
 DEBUG=False
 DB_NAME=postgres
 REDIS_URL=redis://redis:6379/
-MEDIA_ROOT=/opt/deploy/bezen/media/
+ASSETS_ROOT
+STATIC_URL
+MEDIA_URL
