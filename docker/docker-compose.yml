@@ -72,6 +72,7 @@ services:
       - STATIC_URL
       - ASSETS_ROOT
       - IMAGE_UPLOAD_SIZE_LIMIT_IN_MB=20
+      - SERVER_URL
     depends_on:
       - uwsgi
 
