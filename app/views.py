@@ -25,3 +25,8 @@ def get_image(request, record_id):
     API endpoint that redirects to the image of a record (image served by NGINX).
     """
     return redirect(Record.objects.get(id=record_id).photo.url)
+
+
+@api_view(['GET'])
+def redirect_to_records(request):
+    return redirect("/records/")
