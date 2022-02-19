@@ -10,26 +10,49 @@ jobs:
 
       - name: "Start the containers using Docker-compose"
         run: |
-          cd docker && sudo docker-compose -p bezen up -d
+          export SERVER_URL=nginx && cd docker && sudo SERVER_URL=nginx docker-compose -p bezen up -d
 
       - name: "Run the tests"
         run: |
           sudo docker exec bezen_uwsgi python manage.py test
     
 
-#  deploy:
-#    name: "Deploy to production"
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - uses: actions/checkout@v2
-#
-#      - name: "Start the containers using Docker-compose"
-#        run: |
-#          cd dodosudo docker-compose -p bezen --project-directory docker -f docker/default.yml up -d
-#
-#      - name: "Run the tests"
-#        run: |
-#          sudo docker exec bezen_uwsgi python manage.py test
+  deploy:
+    name: "Deploy to server"
+#    needs:
+#      - test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: "Write SSH key to file"
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+        run: |
+          echo "$SSH_KEY" > ssh_key 
+          chmod 600 ssh_key
+
+      - name: "Create deploy script"
+        env:
+          FOLDER_PATH: ${{ secrets.FOLDER_PATH }}
+          SERVER_URL: ${{ secrets.SERVER_URL }}
+        run: |
+          echo "cd $FOLDER_PATH && 
+          git pull && 
+          cd docker && 
+          export SERVER_URL=$SERVER_URL && 
+          sudo docker-compose -p bezen build && 
+          sudo SERVER_URL=$SERVER_URL docker-compose -p bezen up -d" > deploy.sh
+
+      - name: "SSH into machine and execute script"
+        env:
+          SERVER_URL: ${{ secrets.SERVER_URL }}
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H $SERVER_URL > ~/.ssh/known_hosts
+          cat deploy.sh | ssh -i ssh_key ubuntu@$SERVER_URL
+
+
 
 
