@@ -32,20 +32,6 @@ services:
     depends_on:
       - postgres
 
-#  celery_beat:
-#    build:
-#      context: ..
-#      dockerfile: docker/Dockerfile
-#    container_name: bezen_celery_beat
-#    restart: unless-stopped
-#    command: /usr/local/bin/celery -A backend.celery beat --schedule=/tmp/celerybeat-schedule
-#    env_file:
-#      - env_file_app
-#    depends_on:
-#      - redis
-#      - postgres
-#      - uwsgi
-
   celery_worker_default:
     build:
       context: ..
@@ -79,6 +65,8 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    expose:
+      - "80"
     environment:
       - MEDIA_URL
       - STATIC_URL
