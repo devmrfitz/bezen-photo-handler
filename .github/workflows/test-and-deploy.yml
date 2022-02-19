@@ -1,0 +1,35 @@
+name: "Test and deploy"
+on: push
+jobs:
+  test:
+    name: "Run automated unit tests"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: "Start the containers using Docker-compose"
+        run: |
+          sudo docker-compose -p bezen --project-directory docker -f docker/default.yml up -d
+
+      - name: "Run the tests"
+        run: |
+          sudo docker exec bezen_uwsgi python manage.py test
+    
+
+#  deploy:
+#    name: "Deploy to production"
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - name: "Start the containers using Docker-compose"
+#        run: |
+#          sudo docker-compose -p bezen --project-directory docker -f docker/default.yml up -d
+#
+#      - name: "Run the tests"
+#        run: |
+#          sudo docker exec bezen_uwsgi python manage.py test
+
+
