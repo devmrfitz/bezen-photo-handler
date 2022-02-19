@@ -1,4 +1,5 @@
-DJANGO_SECRET=
+# Default Values
+DJANGO_SECRET=qo2nv353wagoq2r78t45gyvboq87cvt3nb
 DB_HOST=postgres
 DB_PORT=5432
 DB_USER=user

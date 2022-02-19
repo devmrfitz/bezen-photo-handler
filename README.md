@@ -1,6 +1,8 @@
 This is a REST based backend for a webapp that provides a simple way to upload images , along-with some data like name, 
 weight, etc).
 
+The website is hosted at [bezen.devmrfitz.xyz](http://bezen.devmrfitz.xyz/).
+
 ## Tech Stack
 - Django & Django Rest Framework: Project structure and the entirety of the REST API.
 - Celery: Asynchronous (background) tasks.

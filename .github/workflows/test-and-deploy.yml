@@ -19,8 +19,8 @@ jobs:
 
   deploy:
     name: "Deploy to server"
-#    needs:
-#      - test
+    needs:
+      - test
     runs-on: ubuntu-latest
 
     steps:
